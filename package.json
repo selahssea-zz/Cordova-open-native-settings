@@ -1,0 +1,46 @@
+{
+  "name": "nativesettingsopener",
+  "version": "1.0.1",
+  "description": "Native settings opener for Cordova 3.0",
+  "cordova": {
+    "id": "com.phonegap.plugins.nativesettingsopener",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selahssea/Cordova-open-native-settings"
+  },
+  "keywords": [
+    "native-settings",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Jakub Swierk <j.swirus@gmail.com>",
+  "contributors": [
+    {
+      "name": "Seyed Hadi Hosseini",
+      "email": "im.perlish@gmail.com"
+    },
+    {
+      "username": "deefactorial"
+    },
+	{
+      "username": "selahssea"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/selahssea/Cordova-open-native-settings/issues"
+  },
+  "homepage": "https://github.com/selahssea/Cordova-open-native-settings#readme"
+}
