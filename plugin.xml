@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	id="com.phonegap.plugins.nativesettingsopener"
-	version="1.2">
+	version="1.3">
 
 	<name>Native settings</name>
-	<description>Native settings opener for Cordova 3.0</description>
+	<description>Native settings opener for Cordova 4.0</description>
 	<license>MIT</license>
 
 	<engines>
-		<engine name="cordova" version=">=3.0.0" />
+		<engine name="cordova" version=">=4.0.0" />
 	</engines>    
 
 	<js-module src="www/settings.js" name="Settings">
@@ -32,6 +32,18 @@
 			<feature name="NativeSettings">
 				<param name="ios-package" value="NativeSettings"/>
 			</feature>
+		</config-file>
+		<config-file target="*-Info.plist" parent="CFBundleURLTypes">
+			<array>
+				<dict>
+					<key>CFBundleTypeRole</key>
+					<string>Editor</string>
+					<key>CFBundleURLSchemes</key>
+					<array>
+						<string>prefs</string>
+					</array>
+				</dict>
+			</array>
 		</config-file>
 
 		<header-file src="src/ios/NativeSettings.h" />

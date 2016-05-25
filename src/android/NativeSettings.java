@@ -9,6 +9,7 @@
 package com.phonegap.plugins.nativesettings;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.content.Intent;
 import android.content.Context;
@@ -23,19 +24,19 @@ import org.apache.cordova.PluginResult;
 public class NativeSettings extends CordovaPlugin {
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         PluginResult.Status status = PluginResult.Status.OK;
         Uri packageUri = Uri.parse("package:" + this.cordova.getActivity().getPackageName());
         String result = "";
 
         //Information on settings can be found here:
         //http://developer.android.com/reference/android/provider/Settings.html
+		
+		action = args.getString(0);
 
-        if (action.equals("open")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        } else if (action.equals("accessibility")) {
+        if (action.equals("accessibility")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS));
-        } else if (action.equals("add_account")) {
+        } else if (action.equals("account")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT));
         } else if (action.equals("airplane_mode")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS));
@@ -61,7 +62,7 @@ public class NativeSettings extends CordovaPlugin {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS));
         } else if (action.equals("date")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
-        } else if (action.equals("device_info")) {
+        } else if (action.equals("about")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DEVICE_INFO_SETTINGS));
         } else if (action.equals("display")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS));
@@ -69,15 +70,15 @@ public class NativeSettings extends CordovaPlugin {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DREAM_SETTINGS));
         } else if (action.equals("home")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_HOME_SETTINGS));
-        } else if (action.equals("input_method")) {
+        } else if (action.equals("keyboard")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
-        } else if (action.equals("input_method_subtype")) {
+        } else if (action.equals("keyboard_subtype")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS));
-        } else if (action.equals("internal_storage")) {
+        } else if (action.equals("storage")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS));
         } else if (action.equals("locale")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCALE_SETTINGS));
-        } else if (action.equals("location_source")) {
+        } else if (action.equals("location")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         } else if (action.equals("manage_all_applications")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
@@ -85,7 +86,7 @@ public class NativeSettings extends CordovaPlugin {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
         } else if (action.equals("memory_card")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_MEMORY_CARD_SETTINGS));
-        } else if (action.equals("network_operator")) {
+        } else if (action.equals("network")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
         } else if (action.equals("nfcsharing")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NFCSHARING_SETTINGS));
@@ -115,7 +116,7 @@ public class NativeSettings extends CordovaPlugin {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS));
         } else if (action.equals("sync")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SYNC_SETTINGS));
-        } else if (action.equals("usage_access")) {
+        } else if (action.equals("usage")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS));
         } else if (action.equals("user_dictionary")) {
             this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_USER_DICTIONARY_SETTINGS));
@@ -132,9 +133,7 @@ public class NativeSettings extends CordovaPlugin {
         }
         
         callbackContext.sendPluginResult(new PluginResult(status, result));
-
         return true;
-
     }
 }
 
