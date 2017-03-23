@@ -11,9 +11,11 @@
 @implementation NativeSettings
 
 - (void)open:(CDVInvokedUrlCommand*)command
-{
-        NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        [[UIApplication sharedApplication] openURL:appSettings];
+{        
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if (url != nil) {
+            [[UIApplication sharedApplication] openURL:url options:[NSDictionary new] completionHandler:nil];
+        }
 }
 
 @end
