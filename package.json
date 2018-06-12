@@ -1,0 +1,19 @@
+{
+  "name": "cordova-open-native-settings",
+  "version": "0.1.0",
+  "description": "The plugin allows you to open Settings view from Android Cordova application and to open Native App settings view from iOS 8 Cordova application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selahssea/Cordova-open-native-settings.git"
+  },
+  "author": "selahssea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/selahssea/Cordova-open-native-settings/issues"
+  },
+  "homepage": "https://github.com/selahssea/Cordova-open-native-settings#readme"
+}
