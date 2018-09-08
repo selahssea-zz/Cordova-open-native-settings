@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mobileias/cordova-open-native-settings.git"
+    "url": "git+https://github.com/mobileias/Cordova-open-native-settings.git"
   },
   "keywords": [
     "ecosystem:cordova",
