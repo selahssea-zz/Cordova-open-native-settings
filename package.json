@@ -1,6 +1,6 @@
 {
   "name": "com.phonegap.plugins.nativesettingsopener",
-  "version": "7.8.7",
+  "version": "1.2.0",
   "description": "\n    This plugin allows you to open native settings.\n    ",
   "cordova": {
     "id": "com.phonegap.plugins.nativesettingsopener",
