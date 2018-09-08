@@ -1,0 +1,27 @@
+{
+  "name": "com.phonegap.plugins.nativesettingsopener",
+  "version": "1.2.0",
+  "description": "\n    This plugin allows you to open native settings.\n    ",
+  "cordova": {
+    "id": "com.phonegap.plugins.nativesettingsopener",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mobileias/Cordova-open-native-settings.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "selahssea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/selahssea/Cordova-open-native-settings/issues"
+  },
+  "homepage": "https://github.com/selahssea/Cordova-open-native-settings#readme"
+}
