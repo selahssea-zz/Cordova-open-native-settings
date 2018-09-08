@@ -19,10 +19,10 @@
     "cordova-ios",
     "cordova-wp8"
   ],
-  "author": "selahssea",
+  "author": "mobileias",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/selahssea/Cordova-open-native-settings/issues"
+    "url": "https://github.com/mobileias/Cordova-open-native-settings/issues"
   },
-  "homepage": "https://github.com/selahssea/Cordova-open-native-settings#readme"
+  "homepage": "https://github.com/mobileias/Cordova-open-native-settings#readme"
 }
