@@ -5,7 +5,7 @@ The plugin allows you to open Settings view from Android Cordova application and
 ##Adding the Plugin to your project
 
 ```bash
-cordova plugin add https://github.com/selahssea/Cordova-open-native-settings.git
+cordova plugin add https://github.com/mobileias/Cordova-open-native-settings.git
 ```
 
 ##Removing the Plugin to your project
