@@ -9,12 +9,15 @@
 package com.phonegap.plugins.nativesettings;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
 
 import android.provider.Settings;
+
+import android.os.Build;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -23,118 +26,145 @@ import org.apache.cordova.PluginResult;
 public class NativeSettings extends CordovaPlugin {
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+		Context context=this.cordova.getActivity().getApplicationContext();
         PluginResult.Status status = PluginResult.Status.OK;
         Uri packageUri = Uri.parse("package:" + this.cordova.getActivity().getPackageName());
         String result = "";
 
         //Information on settings can be found here:
         //http://developer.android.com/reference/android/provider/Settings.html
+		
+		action = args.getString(0);
+		Intent intent = null;
 
-        if (action.equals("open")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        } else if (action.equals("accessibility")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS));
-        } else if (action.equals("add_account")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT));
+        if (action.equals("accessibility")) {
+            intent = new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        } else if (action.equals("account")) {
+            intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
         } else if (action.equals("airplane_mode")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
         } else if (action.equals("apn")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_APN_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_APN_SETTINGS);
         } else if (action.equals("application_details")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri));
+            intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
         } else if (action.equals("application_development")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
         } else if (action.equals("application")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_APPLICATION_SETTINGS);
         }
         //else if (action.equals("battery_saver")) {
-        //    this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS));
+        //    intent = new Intent(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS);
         //}
-        else if (action.equals("bluetooth")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS));
+        else if (action.equals("battery_optimization")) {
+            intent = new Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+        } else if (action.equals("bluetooth")) {
+            intent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
         } else if (action.equals("captioning")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_CAPTIONING_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_CAPTIONING_SETTINGS);
         } else if (action.equals("cast")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_CAST_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_CAST_SETTINGS);
         } else if (action.equals("data_roaming")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
         } else if (action.equals("date")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
-        } else if (action.equals("device_info")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DEVICE_INFO_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
+        } else if (action.equals("about")) {
+            intent = new Intent(android.provider.Settings.ACTION_DEVICE_INFO_SETTINGS);
         } else if (action.equals("display")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
         } else if (action.equals("dream")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_DREAM_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_DREAM_SETTINGS);
         } else if (action.equals("home")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_HOME_SETTINGS));
-        } else if (action.equals("input_method")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
-        } else if (action.equals("input_method_subtype")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS));
-        } else if (action.equals("internal_storage")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_HOME_SETTINGS);
+        } else if (action.equals("keyboard")) {
+            intent = new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS);
+        } else if (action.equals("keyboard_subtype")) {
+            intent = new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS);
+        } else if (action.equals("storage")) {
+            intent = new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS);
         } else if (action.equals("locale")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCALE_SETTINGS));
-        } else if (action.equals("location_source")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_LOCALE_SETTINGS);
+        } else if (action.equals("location")) {
+            intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         } else if (action.equals("manage_all_applications")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS);
         } else if (action.equals("manage_applications")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
         } else if (action.equals("memory_card")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_MEMORY_CARD_SETTINGS));
-        } else if (action.equals("network_operator")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_MEMORY_CARD_SETTINGS);
+        } else if (action.equals("network")) {
+            intent = new Intent(android.provider.Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
         } else if (action.equals("nfcsharing")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NFCSHARING_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_NFCSHARING_SETTINGS);
         } else if (action.equals("nfc_payment")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NFC_PAYMENT_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_NFC_PAYMENT_SETTINGS);
         } else if (action.equals("nfc_settings")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS));
-        }
+            intent = new Intent(android.provider.Settings.ACTION_NFC_SETTINGS);
+        } else if (action.equals("notification_id")) {
+			// from: https://stackoverflow.com/questions/32366649/any-way-to-link-to-the-android-notification-settings-for-my-app
+			intent = new Intent();
+			if(android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1){
+				intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+				intent.putExtra("android.provider.extra.APP_PACKAGE", context.getPackageName());
+			}else if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+				intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+				intent.putExtra("app_package", context.getPackageName());
+				intent.putExtra("app_uid", context.getApplicationInfo().uid);
+			}else {
+				intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+				intent.addCategory(Intent.CATEGORY_DEFAULT);
+				intent.setData(Uri.parse("package:" + context.getPackageName()));
+			}
+		}
         //else if (action.equals("notification_listner")) {
-        //    this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+        //    intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
         //}
         else if (action.equals("print")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_PRINT_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_PRINT_SETTINGS);
         } else if (action.equals("privacy")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_PRIVACY_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_PRIVACY_SETTINGS);
         } else if (action.equals("quick_launch")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_QUICK_LAUNCH_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_QUICK_LAUNCH_SETTINGS);
         } else if (action.equals("search")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SEARCH_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_SEARCH_SETTINGS);
         } else if (action.equals("security")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
         } else if (action.equals("settings")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
         } else if (action.equals("show_regulatory_info")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SHOW_REGULATORY_INFO));
+            intent = new Intent(android.provider.Settings.ACTION_SHOW_REGULATORY_INFO);
         } else if (action.equals("sound")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
+        } else if (action.equals("store")) {
+            intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + this.cordova.getActivity().getPackageName()));
         } else if (action.equals("sync")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_SYNC_SETTINGS));
-        } else if (action.equals("usage_access")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_SYNC_SETTINGS);
+        } else if (action.equals("usage")) {
+            intent = new Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS);
         } else if (action.equals("user_dictionary")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_USER_DICTIONARY_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_USER_DICTIONARY_SETTINGS);
         } else if (action.equals("voice_input")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS);
         } else if (action.equals("wifi_ip")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_WIFI_IP_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_WIFI_IP_SETTINGS);
         } else if (action.equals("wifi")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+        	intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
         } else if (action.equals("wireless")) {
-            this.cordova.getActivity().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+            intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
         } else {
              status = PluginResult.Status.INVALID_ACTION;
+             callbackContext.sendPluginResult(new PluginResult(status, result));
+        	return false;
         }
         
+        if(args.length() > 1 && args.getBoolean(1)) {
+        	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        this.cordova.getActivity().startActivity(intent);
+        
         callbackContext.sendPluginResult(new PluginResult(status, result));
-
         return true;
-
     }
 }
 
